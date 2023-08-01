@@ -3,14 +3,12 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
+import { setInitialPokemon } from '../store/pokemonSlice';
+import { useSelector } from 'react-redux';
+import { getInitialPokemon } from '../store/selectors';
 
 interface HomeProps {
   allPokemon?: { name: string; url: string }[];
-}
-
-interface PokemonBase {
-  name: string;
-  url: string;
 }
 
 const Home: NextPage<HomeProps> = (props) => {
@@ -18,11 +16,13 @@ const Home: NextPage<HomeProps> = (props) => {
   console.log('allPokemon', allPokemon);
   console.log('props', props);
 
-  const [pokemon, setPokemon] = useState<PokemonBase[]>([]);
-
   useEffect(() => {
-    if (allPokemon) setPokemon(allPokemon);
-  }, [allPokemon]);
+    setInitialPokemon(allPokemon);
+  }, []);
+
+  //Todo: get this working
+  const test = useSelector(getInitialPokemon);
+  console.log('test', test);
 
   return (
     <div className={styles.container}>
@@ -35,7 +35,7 @@ const Home: NextPage<HomeProps> = (props) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <h1>Here we go!</h1>
-      {pokemon && pokemon.map((p) => <p>{p.name}</p>)}
+      {allPokemon && allPokemon.map((p) => <p>{p.name}</p>)}
     </div>
   );
 };
