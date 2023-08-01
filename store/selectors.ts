@@ -1,7 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-//todo: this is not working
-const getPokemon = (state) => state.allPokemon;
+const getPokemon = (state) => state.pokemonSlice;
 
 export const getInitialPokemon = createSelector(
   getPokemon,
