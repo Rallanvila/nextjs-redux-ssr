@@ -1,14 +1,18 @@
 # NextJS Redux SSR
 
-This repository serves the purpose of fully server-side building the app and populating the store with essential data. It leverages NextJS's dynamic routing capabilities to achieve this goal seamlessly. The application is designed to handle server-side loading for all dynamic pages while also managing client-side navigation effectively with ReduxToolKit managing the state.
+A simple proof of concept serving the purpose of entirely server-side building the app and populating the store with essential data. It leverages NextJS's dynamic routing capabilities to achieve this goal seamlessly. The application is designed to handle server-side loading for all dynamic pages while also managing client-side navigation effectively with ReduxToolKit managing the state.
 
 ## Tech Used:
 
-- NextJS v12
-- Redux ToolKit
-- Tailwind CSS for quick styling
-- Typescript
+- NextJS v12  (dynamic routing)
+- Redux ToolKit 
+- Tailwind CSS  
+- Typescript 
 
+
+![image](https://github.com/Rallanvila/nextjs-redux-ssr/assets/74523880/7c355f3a-43d7-43c8-9ff4-a78e4e0bdd25)
+
+![image](https://github.com/Rallanvila/nextjs-redux-ssr/assets/74523880/2df7800f-8662-4ff9-954c-3f718e2805c7)
 ---
 
 ## Getting Started
