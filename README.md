@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextJS Redux SSR
+
+This repository serves the purpose of fully server-side building the app and populating the store with essential data. It leverages NextJS's dynamic routing capabilities to achieve this goal seamlessly. The application is designed to handle server-side loading for all dynamic pages while also managing client-side navigation effectively with ReduxToolKit managing the state.
+
+## Tech Used:
+
+- NextJS v12
+- Redux ToolKit
+- Tailwind CSS for quick styling
+- Typescript
+
+---
 
 ## Getting Started
 
