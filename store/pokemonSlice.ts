@@ -7,6 +7,7 @@ interface InitialState {
 export interface PokemonBase {
   name: string;
   url: string;
+  id: number;
 }
 
 const initialState: InitialState = {

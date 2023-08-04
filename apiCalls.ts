@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { PokemonBase } from './store/pokemonSlice';
 
 export const pokemonApiBaseURL = 'https://pokeapi.co/api/v2';
 
@@ -6,7 +7,23 @@ export const getAllPokemon = async () => {
   const params = new URLSearchParams([['limit', '150']]);
   return await axios
     .get(`${pokemonApiBaseURL}/pokemon`, { params })
-    .then((res) => res.data.results);
+    .then((res) => {
+      const arrayOfPokemon = res.data.results;
+
+      const pokemonWithIds = arrayOfPokemon.reduce(
+        (
+          accumulator: PokemonBase[],
+          currentValue: PokemonBase,
+          index: number
+        ) => {
+          const pokemonWithoutIds = { ...currentValue, id: index + 1 };
+          accumulator.push(pokemonWithoutIds);
+          return accumulator;
+        },
+        []
+      );
+      return pokemonWithIds;
+    });
 };
 
 /**
