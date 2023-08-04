@@ -16,7 +16,10 @@ export const getAllPokemon = async () => {
           currentValue: PokemonBase,
           index: number
         ) => {
-          const pokemonWithoutIds = { ...currentValue, id: index + 1 };
+          const pokemonWithoutIds = {
+            ...currentValue,
+            id: index + 1,
+          };
           accumulator.push(pokemonWithoutIds);
           return accumulator;
         },

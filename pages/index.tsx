@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getInitialPokemon } from '../store/selectors';
 import Link from 'next/link';
 import { getAllPokemon } from '../apiCalls';
+import { fetchInitialPokemon } from '../store/actions';
+import { AppDispatch } from '../store/store';
 
 interface HomeProps {
   ssrPokemon?: { name: string; url: string }[];
@@ -13,7 +15,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = (props) => {
   const { ssrPokemon } = props;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const pokemon = useSelector(getInitialPokemon);
 
@@ -25,13 +27,7 @@ const Home: NextPage<HomeProps> = (props) => {
     if (ssrPokemon && ssrPokemon.length > 0) {
       dispatch(setInitialPokemon(ssrPokemon));
     } else {
-      // Runs a client side fetch
-      const fetchPokemon = async () => {
-        const csrPokemon = await getAllPokemon();
-        dispatch(setInitialPokemon(csrPokemon));
-      };
-      // Set's the state client side for the app to use
-      fetchPokemon();
+      dispatch(fetchInitialPokemon());
     }
   }, []);
 

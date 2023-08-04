@@ -10,6 +10,8 @@ import {
   getPokemonInfoStats,
   getPokemonInfoTypes,
 } from '../store/selectors';
+import { fetchPokemonInfo } from '../store/actions';
+import { AppDispatch } from '../store/store';
 
 interface PokemonPageProps {
   ssrPokemonInfo: {
@@ -24,7 +26,7 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
   const { ssrPokemonInfo } = props;
   const { image, name, stats, types } = ssrPokemonInfo;
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const searchedPokemon = router.query.pokemon as 'string';
 
   const pokemonInfoImage = useSelector(getPokemonInfoImage);
@@ -36,13 +38,7 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
     if (name) {
       dispatch(setPokemonInfo(ssrPokemonInfo));
     } else {
-      // Runs a client side fetch
-      const fetchPokemonInfo = async () => {
-        const csrPokemonPokemonInfo = await getPokemonInfo(searchedPokemon);
-        dispatch(setPokemonInfo(csrPokemonPokemonInfo));
-      };
-      // Set's the state client side for the app to use
-      fetchPokemonInfo();
+      dispatch(fetchPokemonInfo(searchedPokemon));
     }
   }, []);
 
