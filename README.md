@@ -9,10 +9,19 @@ A simple proof of concept serving the purpose of entirely server-side building t
 - Tailwind CSS  
 - Typescript 
 
-
+### Client-Side
 ![image](https://github.com/Rallanvila/nextjs-redux-ssr/assets/74523880/7c355f3a-43d7-43c8-9ff4-a78e4e0bdd25)
 
+### Server-Side
+![image](https://github.com/Rallanvila/nextjs-redux-ssr/assets/74523880/91b29ca6-21b2-4bde-95fa-c88144931cbe)
+
+### Client-Side 
 ![image](https://github.com/Rallanvila/nextjs-redux-ssr/assets/74523880/2df7800f-8662-4ff9-954c-3f718e2805c7)
+
+### Server-Side
+![image](https://github.com/Rallanvila/nextjs-redux-ssr/assets/74523880/78e25e39-e6bf-41d9-8ae5-4ca24329a804)
+
+
 ---
 
 ## Getting Started
