@@ -29,7 +29,7 @@ export interface PokemonPageProps {
 
 const PokemonPage: NextPage<PokemonPageProps> = (props) => {
   const { ssrPokemonInfo } = props;
-  const { image, name, stats, types } = ssrPokemonInfo;
+  const { name } = ssrPokemonInfo;
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const searchedPokemon = router.query.pokemon as 'string';
