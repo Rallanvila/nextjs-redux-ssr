@@ -1,7 +1,7 @@
 import { PokemonBase } from './pokemonSlice';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface StatsType {
+export interface StatsType {
   type: {
     base_stat: number;
     stat: string;

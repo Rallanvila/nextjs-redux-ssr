@@ -5,6 +5,7 @@ import { setPokemonInfo } from '../store/pokemonInfoSlice';
 import { useEffect } from 'react';
 import { getPokemonInfo } from '../apiCalls';
 import {
+  StatsType,
   getPokemonInfoImage,
   getPokemonInfoName,
   getPokemonInfoStats,
@@ -14,13 +15,16 @@ import { fetchPokemonInfo } from '../store/actions';
 import { AppDispatch } from '../store/store';
 import PokemonStats from '../components/PokemonStats';
 
+interface PokemonInfo {
+  image: string;
+  name: string;
+  stats: { base_stat: number; stat: { name: string } }[] | StatsType[];
+  types: { type: { name: string } }[] | string[];
+}
+
 export interface PokemonPageProps {
-  ssrPokemonInfo: {
-    image: string;
-    name: string;
-    stats: { base_stat: number; stat: { name: string } }[];
-    types: { type: { name: string } }[];
-  };
+  ssrPokemonInfo: PokemonInfo;
+  rtkPokemonInfo?: PokemonInfo;
 }
 
 const PokemonPage: NextPage<PokemonPageProps> = (props) => {
@@ -62,14 +66,12 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
   }
   // Handles Client side routing changes
   if (pokemonInfoImage) {
-    const pokemonTypes = pokemonInfoTypes.map((type) => type.type.name);
-    const pokemonStats = pokemonInfoStats.map((pokeStat) => {
-      const { base_stat, stat } = pokeStat;
-      return {
-        baseStat: base_stat,
-        name: stat.name,
-      };
-    });
+    const pokemonInfo: PokemonInfo = {
+      image: pokemonInfoImage,
+      name: pokemonInfoName,
+      types: pokemonInfoTypes,
+      stats: pokemonInfoStats,
+    };
     return (
       <div className='max-w-3xl mx-auto'>
         <button
@@ -77,29 +79,7 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
           onClick={onButtonClick}>
           Back to Home
         </button>
-        <div className='flex p-8  justify-center align-middle'>
-          <img src={pokemonInfoImage} className='w-80 h-80 mr-16' />
-          <div className='align-middle w-100'>
-            <h1 className='text-xl font-bold mb-4'>
-              {pokemonInfoName.toUpperCase()}
-            </h1>
-            <div className='mb-2'>
-              <h2 className='text-lg font-semibold'>Type</h2>
-              {pokemonTypes.map((pokemonType) => (
-                <span className=' mr-2' key={pokemonType}>
-                  {pokemonType}
-                </span>
-              ))}
-            </div>
-            <h2 className='text-lg font-semibold'>Stats</h2>
-            {pokemonStats.map((stat) => (
-              <div key={stat.name}>
-                <span className='font-semibold mr-2'>{stat.name}:</span>{' '}
-                {stat.baseStat}
-              </div>
-            ))}
-          </div>
-        </div>
+        <PokemonStats ssrPokemonInfo={pokemonInfo} />
       </div>
     );
   }
