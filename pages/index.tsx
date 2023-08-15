@@ -7,10 +7,12 @@ import Link from 'next/link';
 import { getAllPokemon } from '../apiCalls';
 import { AppDispatch } from '../store/store';
 
+// Interfaces
 interface HomeProps {
   ssrPokemon?: { name: string; url: string }[];
 }
 
+// Functional Component- Default export
 const Home: NextPage<HomeProps> = (props) => {
   const { ssrPokemon } = props;
   const dispatch = useDispatch<AppDispatch>();
@@ -43,13 +45,7 @@ const Home: NextPage<HomeProps> = (props) => {
   );
 };
 
-//Todo: See if we can use store with getServerSideProps instead of getInitialProps
-
-//! We want to see if we can set selectors on the server rather than the client
-//build store in server
-//selectors should be available within component by useSelector
-//https://redux-toolkit.js.org/rtk-query/usage/server-side-rendering
-
+// Server Side Rendering Logic
 export const getServerSideProps = async (ctx) => {
   const { req } = ctx;
   if (!req) {
@@ -59,6 +55,13 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
+
+  //Todo: See if we can use store with getServerSideProps instead of getInitialProps
+
+  //! We want to see if we can set selectors on the server rather than the client
+  //build store in server
+  //selectors should be available within component by useSelector
+  //https://redux-toolkit.js.org/rtk-query/usage/server-side-rendering
 
   const ssrPokemon = await getAllPokemon();
 

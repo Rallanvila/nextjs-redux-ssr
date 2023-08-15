@@ -1,8 +1,18 @@
 import { FC } from 'react';
-import { PokemonPageProps } from '../pages/[pokemon]';
+import { useSelector } from 'react-redux';
+import {
+  getPokemonInfoImage,
+  getPokemonInfoName,
+  getPokemonInfoStats,
+  getPokemonInfoTypes,
+} from '../store/selectors';
 
-const PokemonStats: FC<PokemonPageProps> = (props) => {
-  const { image, name, stats, types } = props.ssrPokemonInfo;
+const PokemonStats: FC = () => {
+  const image = useSelector(getPokemonInfoImage);
+  const name = useSelector(getPokemonInfoName);
+  const stats = useSelector(getPokemonInfoStats);
+  const types = useSelector(getPokemonInfoTypes);
+
   const pokemonTypes = types.map((type) => type.type.name);
   const pokemonStats = stats.map((pokeStat) => {
     const { base_stat, stat } = pokeStat;

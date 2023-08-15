@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PokemonBase } from '../types/types';
 
 interface InitialState {
   allPokemon: PokemonBase[];
-}
-
-export interface PokemonBase {
-  name: string;
-  url: string;
-  id: number;
 }
 
 const initialState: InitialState = {

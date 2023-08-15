@@ -4,22 +4,16 @@ import { useDispatch } from 'react-redux';
 import { setPokemonInfo } from '../store/pokemonInfoSlice';
 import { useEffect } from 'react';
 import { getPokemonInfo } from '../apiCalls';
-import { StatsType } from '../store/selectors';
 import { AppDispatch } from '../store/store';
 import PokemonStats from '../components/PokemonStats';
+import { PokemonInfo } from '../types/types';
 
-interface PokemonInfo {
-  image: string;
-  name: string;
-  stats: { base_stat: number; stat: { name: string } }[] | StatsType[];
-  types: { type: { name: string } }[] | string[];
-}
-
+// Interfaces
 export interface PokemonPageProps {
   ssrPokemonInfo: PokemonInfo;
-  rtkPokemonInfo?: PokemonInfo;
 }
 
+// Functional Component- Default export
 const PokemonPage: NextPage<PokemonPageProps> = (props) => {
   const { ssrPokemonInfo } = props;
   const { name } = ssrPokemonInfo;
@@ -43,13 +37,12 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
         onClick={onButtonClick}>
         Back to Home
       </button>
-      <PokemonStats ssrPokemonInfo={ssrPokemonInfo} />
+      <PokemonStats />
     </div>
   );
 };
 
-export default PokemonPage;
-
+// Server Side Rendering Logic
 export const getServerSideProps = async (ctx: NextPageContext) => {
   const { query, req } = ctx;
   const searchedPokemon = query.pokemon;
@@ -76,3 +69,5 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     },
   };
 };
+
+export default PokemonPage;
