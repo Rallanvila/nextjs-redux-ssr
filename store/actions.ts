@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { PokemonBase, setInitialPokemon } from './pokemonSlice';
+import { setInitialPokemon } from './pokemonSlice';
 import { pokemonApiBaseURL } from '../apiCalls';
 import { setPokemonInfo } from './pokemonInfoSlice';
+import { PokemonBase } from '../types/types';
 
 export const fetchInitialPokemon = createAsyncThunk<void, undefined>(
   'fetchInitialPokemon',

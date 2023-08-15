@@ -16,7 +16,7 @@ const initialState: InitialState = {
   image: '',
   name: '',
   types: [],
-  stats: null,
+  stats: [],
 };
 
 const pokemonInfoSlice = createSlice({
