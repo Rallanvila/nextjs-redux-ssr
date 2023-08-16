@@ -1,10 +1,11 @@
 import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { wrapper } from '../store/store';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { PageHead } from '../components/Head';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, ...rest }: AppProps) {
+  const { store } = wrapper.useWrappedStore(rest);
   return (
     <Provider store={store}>
       <PageHead />
