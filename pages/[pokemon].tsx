@@ -1,11 +1,11 @@
 import { NextPage, NextPageContext } from 'next';
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setPokemonInfo } from '../store/pokemonInfoSlice';
 import { useEffect } from 'react';
 import { getPokemonInfo } from '../apiCalls';
 import { AppDispatch } from '../store/store';
 import PokemonStats from '../components/PokemonStats';
+import { SearchButton } from '../components/SearchButton';
 import { PokemonInfo } from '../types/types';
 
 // Interfaces
@@ -17,7 +17,6 @@ export interface PokemonPageProps {
 const PokemonPage: NextPage<PokemonPageProps> = (props) => {
   const { ssrPokemonInfo } = props;
   const { name } = ssrPokemonInfo;
-  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -26,23 +25,31 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
     }
   }, []);
 
-  const onButtonClick = () => {
-    router.push('/');
-  };
-
+  // Handles the initial loading of the app
+  if (ssrPokemonInfo.name) {
+    return (
+      <div className='max-w-3xl mx-auto'>
+        <SearchButton />
+        <PokemonStats />
+        Server Side Rendered
+      </div>
+    );
+  }
+  // Handles Client side routing changes
   return (
     <div className='max-w-3xl mx-auto'>
-      <button
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded m-4'
-        onClick={onButtonClick}>
-        Back to Home
-      </button>
+      csr
+      <SearchButton />
+      {/* //Todo: create link button directly to charizard */}
       <PokemonStats />
+      Client Side Rendered
     </div>
   );
 };
 
-// Server Side Rendering Logic
+export default PokemonPage;
+
+//small doc on how this setup works with all SSR
 export const getServerSideProps = async (ctx: NextPageContext) => {
   const { query, req } = ctx;
   const searchedPokemon = query.pokemon;
@@ -69,5 +76,3 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     },
   };
 };
-
-export default PokemonPage;

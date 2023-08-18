@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { Stats } from './Stats';
 import {
   getPokemonInfoImage,
   getPokemonInfoName,
@@ -41,11 +42,13 @@ const PokemonStats: FC = () => {
         {pokemonStats.map((stat) => (
           <div key={stat.name}>
             <span className='font-semibold mr-2'>{stat.name}:</span>{' '}
-            {stat.baseStat}
+            {/* {stat.baseStat} */}
+            <Stats statName={stat.name} baseStat={stat.baseStat} />
           </div>
         ))}
       </div>
     </div>
   );
 };
+
 export default PokemonStats;
