@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import { getAllPokemon } from '../apiCalls';
 import { AppDispatch } from '../store/store';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 // Interfaces
 interface HomeProps {
@@ -15,6 +17,7 @@ interface HomeProps {
 // Functional Component- Default export
 const Home: NextPage<HomeProps> = (props) => {
   const { ssrPokemon } = props;
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
   const capitalizeFirstLetter = (str: string) => {
@@ -27,18 +30,32 @@ const Home: NextPage<HomeProps> = (props) => {
     }
   }, []);
 
+  const navigateToPokemon = (pokemonName: string) => {
+    router.push(`/${pokemonName}`);
+  };
+
   return (
     <>
-      <div className={styles.container}>
-        <h1 className='font-bold text-3xl mb-2'>Here we go!</h1>
+      <div className='max-w-3xl mx-auto grid grid-cols-4 gap-4 gap-y-6 items-center my-8'>
         {ssrPokemon &&
-          ssrPokemon.map((p) => (
-            <Link
-              className='block underline w-40'
-              key={p.name}
-              href={`/${p.name}`}>
-              {capitalizeFirstLetter(p.name)}
-            </Link>
+          ssrPokemon.map((p, i) => (
+            <div className='shadow-md py-4 rounded'>
+              {/* #{i + 1} */}
+              <Link
+                className='ml-4 w-40 text-center flex flex-col items-center '
+                key={p.name}
+                href={`/${p.name}`}>
+                <Image
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+                    i + 1
+                  }.png`}
+                  alt={p.name}
+                  width={100}
+                  height={100}
+                />
+                {capitalizeFirstLetter(p.name)}
+              </Link>
+            </div>
           ))}
       </div>
     </>
