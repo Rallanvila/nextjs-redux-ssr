@@ -14,6 +14,7 @@ import {
 import { fetchPokemonInfo } from '../store/actions';
 import { AppDispatch } from '../store/store';
 import PokemonStats from '../components/PokemonStats';
+import { SearchButton } from '../components/SearchButton';
 
 interface PokemonInfo {
   image: string;
@@ -47,7 +48,7 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
     }
   }, []);
 
-  const onButtonClick = () => {
+  const navigateHome = () => {
     router.push('/');
   };
 
@@ -55,12 +56,9 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
   if (ssrPokemonInfo.name) {
     return (
       <div className='max-w-3xl mx-auto'>
-        <button
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded m-4'
-          onClick={onButtonClick}>
-          Back to Home
-        </button>
+        <SearchButton />
         <PokemonStats ssrPokemonInfo={ssrPokemonInfo} />
+        SSR Rendered
       </div>
     );
   }
@@ -74,11 +72,13 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
     };
     return (
       <div className='max-w-3xl mx-auto'>
+        csr
         <button
           className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded m-4'
           onClick={onButtonClick}>
           Back to Home
         </button>
+        {/* //Todo: create link button directly to charizard */}
         <PokemonStats ssrPokemonInfo={pokemonInfo} />
       </div>
     );
@@ -87,7 +87,8 @@ const PokemonPage: NextPage<PokemonPageProps> = (props) => {
 
 export default PokemonPage;
 
-PokemonPage.getInitialProps = async (ctx: NextPageContext) => {
+//small doc on how this setup works with all SSR
+export const getServerSideProps = async (ctx: NextPageContext) => {
   const { query, req } = ctx;
   const searchedPokemon = query.pokemon;
 
@@ -108,6 +109,8 @@ PokemonPage.getInitialProps = async (ctx: NextPageContext) => {
       : [];
 
   return {
-    ssrPokemonInfo,
+    props: {
+      ssrPokemonInfo,
+    },
   };
 };

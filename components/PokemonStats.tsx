@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { PokemonPageProps } from '../pages/[pokemon]';
+import { Stats } from './Stats';
 
 const PokemonStats: FC<PokemonPageProps> = (props) => {
   const { image, name, stats, types } = props.ssrPokemonInfo;
@@ -31,11 +32,13 @@ const PokemonStats: FC<PokemonPageProps> = (props) => {
         {pokemonStats.map((stat) => (
           <div key={stat.name}>
             <span className='font-semibold mr-2'>{stat.name}:</span>{' '}
-            {stat.baseStat}
+            {/* {stat.baseStat} */}
+            <Stats statName={stat.name} baseStat={stat.baseStat} />
           </div>
         ))}
       </div>
     </div>
   );
 };
+
 export default PokemonStats;
