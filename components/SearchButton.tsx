@@ -19,7 +19,7 @@ export const SearchButton: FC = () => {
 
   return (
     <form>
-      <div className='flex mt-4 '>
+      <div className='flex my-8 max-w-3xl mx-auto'>
         <Image
           src={pokemonLogo}
           onClick={navigateHome}
